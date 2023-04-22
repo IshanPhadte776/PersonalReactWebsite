@@ -1,0 +1,113 @@
+.imageContainer {
+    position: relative;
+    width: 100%;
+  }
+
+  .imageContainer img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .name {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+    font-family: cursive;
+    transition: all 0.3s ease-in-out;
+
+
+  }
+
+  .name:hover {
+    color:aqua ; /* Change to any color you want */
+    text-shadow: 15px -15px 0 #333;
+}
+
+
+  .slogan {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+    font-family: cursive;
+    transition: all 0.3s ease-in-out;
+
+
+  }
+
+  .slogan:hover {
+    color:aqua ; /* Change to any color you want */
+    text-shadow: 15px -15px 0 #333;
+}
+
+
+
+  @media only screen and (max-width: 1024px) {
+  
+    .name {
+      font-size: 50px;
+    }
+
+    .slogan {
+      font-size: 50px;
+    }
+
+  }
+  
+  @media only screen and (max-width: 768px) {
+
+    .name {
+      font-size: 40px;
+    }
+
+
+    .slogan {
+      font-size: 40px;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+
+    .name {
+      font-size: 30px;
+    }
+
+
+    .slogan {
+      font-size: 30px;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+
+    .name {
+      font-size: 20px;
+    }
+
+
+    .slogan {
+      font-size: 20px;
+    }
+  }
+  
+  @media only screen and (max-width: 320px) {
+
+    .name {
+      font-size: 10px;
+    }
+
+
+    .slogan {
+      font-size: 10px;
+    }
+  }

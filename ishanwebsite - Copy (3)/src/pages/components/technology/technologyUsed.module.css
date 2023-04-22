@@ -1,0 +1,19 @@
+.techRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Adjust the value as needed */
+    margin-left: 10px;
+
+}
+
+.icon {
+    height: 50px;
+    width: 50px;
+}
+
+.text {
+    font-family: cursive;
+    font-size: 30px;
+    margin-right: 20px;
+}

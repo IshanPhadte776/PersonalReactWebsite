@@ -1,0 +1,53 @@
+/* Styles for the container div */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    display: flex;
+  
+  }
+  
+  .subContainer {
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+  
+  }
+
+  .row {
+    display: flex;
+  }
+  
+  /* Styles for the heading */
+  .title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: cursive;
+  }
+  
+  /* Styles for the buttons */
+  .button {
+    background-color: #1d3557;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    height: 150px;
+    font-family: cursive;
+  
+  }
+  
+  .button:hover {
+    background-color: #8028c3;
+    font-size: 36px;
+    font-family: cursive;
+  }
+  

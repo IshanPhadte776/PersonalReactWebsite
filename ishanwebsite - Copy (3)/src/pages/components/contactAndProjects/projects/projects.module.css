@@ -1,0 +1,33 @@
+  /* Styles for the heading */
+  .title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: cursive;
+  }
+
+  /* Styles for the heading */
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: cursive;
+  }
+
+  /* Styles for the heading */
+  .text {
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-family: cursive;
+  }
+
+  .icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+  }
