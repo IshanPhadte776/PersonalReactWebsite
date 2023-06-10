@@ -6,15 +6,18 @@ import Header from "./components/header/Header";
 import TechnologyUsed from "./components/technology/TechnologyUsed";
 import ContactInfoAndProjects from "./components/contactAndProjects/ContactInfoAndProjects";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 
 
 import { FaCaretUp } from "react-icons/fa";
+import GithubRepos from "./components/extra/GitHubRepos";
+
 
 
 
 export default function Home() {
+
   const scrollToTop = () => {
     document.documentElement.scrollTop = 0;
   };
@@ -47,6 +50,9 @@ export default function Home() {
         <FaCaretUp className={styles.scrollToTopButton} onClick={scrollToTop} />
 
         <TechnologyUsed language={language} > </TechnologyUsed>
+        
+        <GithubRepos> </GithubRepos>
+
 
 
       </main>
