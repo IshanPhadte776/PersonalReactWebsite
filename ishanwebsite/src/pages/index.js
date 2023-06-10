@@ -14,6 +14,7 @@ import { FaCaretUp } from "react-icons/fa";
 import GithubRepos from "./components/extra/GitHubRepos";
 
 
+import GithubStats from "./components/extra/GithubStats";
 
 
 export default function Home() {
@@ -52,6 +53,8 @@ export default function Home() {
         <TechnologyUsed language={language} > </TechnologyUsed>
         
         <GithubRepos> </GithubRepos>
+
+        <GithubStats> </GithubStats>
 
 
 

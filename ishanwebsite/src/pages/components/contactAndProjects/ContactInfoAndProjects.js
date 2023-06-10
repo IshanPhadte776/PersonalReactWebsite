@@ -41,7 +41,7 @@ const ContactInfoAndProjects = (props) => {
         <div >
           <h2 className={styles.title}>{props.language === "English" ? "Voici mes meilleurs projets" : "Here are Some of my Side Projects"}</h2>
 
-          <div class={styles.subContainer}>
+          <div className={styles.subContainer}>
             <button
               className={styles.button}
               onClick={() => handleClick("AWSCertifiedCloudPractioner")}
