@@ -43,19 +43,19 @@ const ContactInfoAndProjects = (props) => {
 
           <div class={styles.subContainer}>
             <button
-              class={styles.button}
+              className={styles.button}
               onClick={() => handleClick("AWSCertifiedCloudPractioner")}
             >
               AWS Certified Cloud Practioner
             </button>
             <button
-              class={styles.button}
+              className={styles.button}
               onClick={() => handleClick("FullStackWebDevelopHotelApplication")}
             >
               Full Stack Web Dev Application
             </button>
             <button
-              class={styles.button}
+              className={styles.button}
               onClick={() => handleClick("FullStackAndroidMealerApplication")}
             >
               Full Stack Android Mealer Application
