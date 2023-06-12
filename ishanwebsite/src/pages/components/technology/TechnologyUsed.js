@@ -12,17 +12,19 @@ import { FaGithub } from "react-icons/fa";
 
 const TechnologyUsed = (props) => {
   return (
+    <div> 
     <div className={styles.techRow}>
 
-<h1 className={styles.text}>{props.language === "English" ? "Fais avec React, Next.js, Javascript, HTML5, CSS et Github " : "Created using React, Next.js, Javascript, HTML5, CSS and Github"}</h1>
+<h1 className={styles.text}>{props.language === "English" ? "Fais avec React, Next.js, Javascript, HTML5, CSS, TailwindCSS et Github " : "Created using React, Next.js, Javascript, HTML5, CSS, TailwindCSS and Github"}</h1>
 
-      
-
+    
       <FaReact className={styles.icon} />
       <IoLogoJavascript className={styles.icon}/>
       <AiFillHtml5 className={styles.icon}/>
       <DiCss3 className={styles.icon}/>
       <FaGithub className={styles.icon}/> 
+    </div>
+    <h1 className={styles.text}>{props.language === "English" ? "© Ishan Phadte All rights reserved." : "© Ishan Phadte Tous les droits sont réservés"}</h1>
     </div>
   );
 };

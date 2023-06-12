@@ -6,12 +6,13 @@
     user-select: none;
     font-family: cursive;
     font-weight: bold;
-    font-size: 100px;
+    color: gray;
 
   }
   
   .toggleSliderLabel {
     margin-left: 10px;
+
   }
   
   .toggleSliderSwitch {
@@ -34,40 +35,5 @@
     transition: transform 0.4s ease-in-out;
   }
   
-
-  @media only screen and (max-width: 2048px) {
-
-
-    .toggleSliderText {
-      font-size: 50px;
-    }
-
-
-  }
-  
-  @media only screen and (max-width: 1024px) {
-
-    .toggleSliderText {
-      font-size: 40px;
-    }
-
-  }
-  
-  @media only screen and (max-width: 512px) {
-
-    .toggleSliderText {
-      font-size: 20px;
-    }
-
-
-
-
-  }
-  
-  @media only screen and (max-width: 256px) {
-
-
-
-  }
 
   

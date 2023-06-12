@@ -1,24 +1,14 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-
-import ImageWithText from "./components/extra/ImageWithText";
-import Header from "./components/header/Header";
-import TechnologyUsed from "./components/technology/TechnologyUsed";
-import ContactInfoAndProjects from "./components/contactAndProjects/ContactInfoAndProjects";
-
-import { useState,useEffect } from "react";
-
-
-
+import { useState } from "react";
 import { FaCaretUp } from "react-icons/fa";
 import GithubRepos from "./components/extra/GitHubRepos";
-
-
 import GithubStats from "./components/extra/GithubStats";
+import TechnologyUsed from "./components/technology/TechnologyUsed";
+import VerticalComponent from "./components/sideBar/VerticalComponent";
 
+import Hero from "./components/hero/Hero";
 
 export default function Home() {
-
   const scrollToTop = () => {
     document.documentElement.scrollTop = 0;
   };
@@ -27,38 +17,50 @@ export default function Home() {
 
   const handleLanguageChange = (event) => {
     setLanguage(event);
-    console.log(language)
-
+    console.log(language);
   };
 
-
-
-
+  const handleClick = (event) => {
+    console.log(event.currentTarget.className);
+  };
 
   return (
     <>
       <Head>
-        <title>Ishan's React Website </title>
+        <title>Ishan's React Website</title>
       </Head>
 
-      <main className={styles.main}>
-        <Header language={language} onLanguageChange={handleLanguageChange}> </Header>
+      <div className="min-h-screen grid grid-cols-4">
+        <div className="col-span-1">
+          <VerticalComponent
+            language={language}
+            onLanguageChange={handleLanguageChange}
+          />
+        </div>
 
-        <ImageWithText language={language} > </ImageWithText>
+        <div className="col-span-3 h-full">
+          {/* <Header
+            language={language}
+            onLanguageChange={handleLanguageChange}
+          ></Header> */}
 
-        <ContactInfoAndProjects language={language} > </ContactInfoAndProjects>
+          {/* <ImageWithText language={language}></ImageWithText> */}
 
-        <FaCaretUp className={styles.scrollToTopButton} onClick={scrollToTop} />
+          {/* <ContactInfoAndProjects language={language}></ContactInfoAndProjects> */}
 
-        <TechnologyUsed language={language} > </TechnologyUsed>
-        
-        <GithubRepos> </GithubRepos>
+          <Hero> </Hero>
+          <FaCaretUp
+            onClick={scrollToTop}
+            className="fixed bottom-4 right-4 z-50 p-2 bg-gray-800 rounded-full text-white text-lg shadow-md hover:bg-gray-700 transition-colors duration-300"
+          />
 
-        <GithubStats> </GithubStats>
+          <GithubRepos></GithubRepos>
 
+          <GithubStats></GithubStats>
 
-
-      </main>
+          <TechnologyUsed language={language}></TechnologyUsed>
+        </div>
+      </div>
     </>
   );
 }

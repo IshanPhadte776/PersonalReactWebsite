@@ -1,140 +1,38 @@
-.NavBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Adjust the value as needed */
 
+
+
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px; /* Adjust the value as needed */
 }
 
 .headerText {
-    font-family: cursive;
-
+  font-family: cursive;
 }
 
 .jump {
-    animation: jump 1s ease-in-out infinite;
-    transform-origin: center top;
-    animation-duration: 2s; /* Slow down the animation */
+  animation: jump 1s ease-in-out infinite;
+  transform-origin: center top;
+  animation-duration: 2s; /* Slow down the animation */
+}
 
+@keyframes jump {
+  0% {
+    transform: translateY(0) scaleY(1);
   }
-  
-  @keyframes jump {
-    0% {
-      transform: translateY(0) scaleY(1);
-    }
-    25% {
-      transform: translateY(-10px) scaleY(0.95);
-    }
-    50% {
-      transform: translateY(0) scaleY(1);
-    }
-    75% {
-      transform: translateY(-5px) ;
-    }
-    100% {
-      transform: translateY(0) scaleY(1);
-    }
+  25% {
+    transform: translateY(-10px) scaleY(0.95);
   }
-
-  @media only screen and (max-width: 2048px) {
-  
-    .jump {
-      width: 150px;
-      height: 150px;
-    }
-
-    .emailIcon {
-      width: 200px;
-      height: 150px;
-    }
-
-    .canadaFlag {
-      width: 100px;
-      height: 70px;
-    }
-
-    .headerText {
-      font-size: 50px;
-    }
-
-
+  50% {
+    transform: translateY(0) scaleY(1);
   }
-
-  @media only screen and (max-width: 1500px) {
-
-    .jump {
-      width: 125px;
-      height: 125px;
-    }
-
-    .emailIcon {
-      width: 150px;
-      height: 120px;
-    }
-
-
-
-    .canadaFlag {
-      width: 80px;
-      height: 60px;
-    }
-
-    .headerText {
-      font-size: 35px;
-    }
-
-
+  75% {
+    transform: translateY(-5px);
   }
-  
-  @media only screen and (max-width: 1024px) {
-
-    .jump {
-      width: 100px;
-      height: 100px;
-    }
-
-    .emailIcon {
-      width: 100px;
-      height: 80px;
-    }
-
-
-
-    .canadaFlag {
-      width: 50px;
-      height: 40px;
-    }
-
-    .headerText {
-      font-size: 20px;
-    }
-
-
+  100% {
+    transform: translateY(0) scaleY(1);
   }
-  
-  @media only screen and (max-width: 512px) {
+}
 
-    .jump {
-      width: 20px;
-      height: 20px;
-    }
-
-    .emailIcon {
-      width: 20px;
-      height: 20px;
-    }
-
-    .canadaFlag {
-      width: 20px;
-      height: 20px;
-    }
-
-    .headerText {
-      font-size: 10px;
-    }
-
-
-
-
-  }
-  
