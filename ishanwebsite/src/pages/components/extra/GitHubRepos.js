@@ -12,6 +12,8 @@ const GithubRepos = () => {
   const [searchLanguage, setSearchLanguage] = useState("");
   const [filterButtonClicked, setFilterButtonClicked] = useState(true);
 
+  const [currentTime, setCurrentTime] = useState("");
+
   const [highlightedLanguage, setHighlightedLanguage] = useState("");
   const [numOfProjects, setNumOfProjects] = useState("");
 
@@ -19,25 +21,6 @@ const GithubRepos = () => {
     const date = new Date(dateString);
     const options = { year: "numeric", month: "long", day: "numeric" };
     return date.toLocaleDateString("en-US", options);
-  };
-
-  const splitDescription = (description) => {
-    if (!description) {
-      return [];
-    }
-
-    const discriptionSection = description.split("Tools:")[0];
-    const toolsSection = description.split("Tools:")[1];
-
-    if (!toolsSection) {
-      return [];
-    }
-
-    const toolsArray = toolsSection.split(",").map((tool) => tool.trim());
-    const toolsString = toolsArray.join(", ");
-
-    const returnArray = [discriptionSection, toolsString];
-    return returnArray;
   };
 
   const fetchRepos = async () => {
@@ -58,6 +41,7 @@ const GithubRepos = () => {
     fetchRepos();
   }, []);
 
+
   const toggleVisibility = () => {
     setExpanded(!expanded);
   };
@@ -77,20 +61,16 @@ const GithubRepos = () => {
 
   let previousColor = null;
 
-  const getRandomColor = () => {
+  const getRandomColor = (() => {
     const colors = ["#CFBFFF", "#8577E6", "#C8C8FA", "#929BE5", "#829EFA"];
-    let randomIndex = Math.floor(Math.random() * colors.length);
+    let count = 0;
 
-    // If the previously selected color exists, ensure the new random color is different
-    if (previousColor !== null) {
-      while (colors[randomIndex] === previousColor) {
-        randomIndex = Math.floor(Math.random() * colors.length);
-      }
-    }
-
-    previousColor = colors[randomIndex];
-    return previousColor;
-  };
+    return () => {
+      const color = colors[count % colors.length];
+      count++;
+      return color;
+    };
+  })();
 
   const languageCounts = repos.reduce((counts, repo) => {
     const { language } = repo;
@@ -99,6 +79,8 @@ const GithubRepos = () => {
     }
     return counts;
   }, {});
+
+
 
   const data = Object.entries(languageCounts).map(([language, count]) => {
     return {
@@ -124,16 +106,38 @@ const GithubRepos = () => {
     setHoveredRepo(null);
   };
 
+  // const filteredRepos = repos.filter(
+  //   (repo) => repo.language === searchLanguage
+  // );
 
-  const filteredRepos = repos.filter(
-    (repo) => repo.language === searchLanguage
+  const filteredByLanguage = repos.filter(
+    (repo) =>
+      repo.language &&
+      repo.language.toLowerCase().startsWith(searchLanguage.toLowerCase())
   );
-  const displayRepos = filterButtonClicked ? filteredRepos : repos;
 
-  
+  const filteredByRepoName = repos.filter((repo) =>
+    repo.name.toLowerCase().includes(searchLanguage.toLowerCase())
+  );
+
+  const filteredByTopics = repos.filter((repo) =>
+    repo.topics?.some((topic) =>
+      topic.toLowerCase().includes(searchLanguage.toLowerCase())
+    )
+  );
+
+  const displayRepos =
+    filteredByLanguage.length > 0
+      ? filteredByLanguage
+      : filteredByRepoName.length > 0
+      ? filteredByRepoName
+      : filteredByTopics;
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
-    
     <div className=" rounded-md p-4 ">
       <div className="flex flex-row">
         <div className="w-3/5">
@@ -157,74 +161,73 @@ const GithubRepos = () => {
         </div>
       </div>
 
-      <div className="flex">
-        <div className="flex space-x-4">
-          <input
-            type="text"
-            value={searchLanguage}
-            onChange={handleLanguageChange}
-            placeholder="Filter by language"
-            className="w-full px-3 py-2 border border-gray-300 rounded"
-          />
-          <div className="mt-4 space-x-2">
-            <button
-              onClick={clearFilters}
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded"
-            >
-              Clear Filters
-            </button>
-          </div>
-        </div>
-      </div>
+      <div className="flex border-4 border-8577E6 h-12">
+  <div className="flex space-x-4">
+    <input
+      type="text"
+      value={searchLanguage}
+      onChange={handleLanguageChange}
+      placeholder="Filter by language"
+      className="w-60p px-3 py-2 border border-gray-300 rounded"
+    />
+    <div className="mt-4 space-x-2">
+      <button
+        onClick={clearFilters}
+        className="w-20p px-4 py-2 bg-gray-300 text-gray-700 rounded"
+      >
+        Clear Filters
+      </button>
+    </div>
+  </div>
+</div>
+
+<p>{currentTime}</p>
+
+
 
       <div className="mt-4">
         {loading ? (
           <p>Loading repositories...</p>
         ) : (
-<ul className="mt-4 space-y-4">
-  {displayRepos.map((repo) => (
-    <li
-  key={repo.id}
-  className={`flex items-start cursor-pointer rounded p-6 ${
-    repo.id === hoveredRepo ? 'border-4 border-8577E6' : ''
-  }`}
-  onClick={() => window.open(repo.html_url, '_blank')}
-  onMouseEnter={() => handleMouseEnter(repo.id)}
-  onMouseLeave={handleMouseLeave}
->
-      <span className="mr-2">&#8226;</span>
-      <div className="flex-1">
-      <h3 className="font-bold underline text-8677E6">{repo.name}</h3>
-        <div>{repo.description}</div>
-        <div>{repo.created_at}</div>
-        {repo.topics && repo.topics.length > 0 && (
-          <div className="ml-4">
-            <span className="font-semibold">Topics: </span>
-            {repo.topics.map((topic, index) => (
-              <React.Fragment key={topic}>
-                {index > 0 && ", "}
-                {topic}
-              </React.Fragment>
+          <ul className="mt-4 space-y-4">
+            {displayRepos.map((repo) => (
+              <li
+                key={repo.id}
+                className={`flex items-start cursor-pointer rounded p-6 ${
+                  repo.id === hoveredRepo ? "border-4 border-8577E6" : ""
+                }`}
+                onClick={() => window.open(repo.html_url, "_blank")}
+                onMouseEnter={() => handleMouseEnter(repo.id)}
+                onMouseLeave={handleMouseLeave}
+              >
+                <span className="mr-2">&#8226;</span>
+                <div className="flex-1">
+                  <h3 className="font-bold underline text-8677E6">
+                    {repo.name}
+                  </h3>
+                  <div>{repo.description}</div>
+                  <div>Repo Created: {convertDate(repo.created_at)}</div>
+                  {repo.topics && repo.topics.length > 0 && (
+                    <div className="ml-4">
+                      <span className="font-semibold">Topics: </span>
+                      {repo.topics.map((topic, index) => (
+                        <React.Fragment key={topic}>
+                          {index > 0 && ", "}
+                          {capitalizeFirstLetter(topic)}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </div>
-    </li>
-  ))}
-</ul>
 
-
-
-
-
-        )}
-      </div>
-      
+      <div> </div>
     </div>
-    
   );
-  
 };
-
 
 export default GithubRepos;
