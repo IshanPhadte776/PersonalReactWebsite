@@ -1,20 +1,38 @@
-            {/* <div className="legend-container">
-        {data.map((item, index) => (
-          <div
-            key={item.label}
-            className={`legend-item ${
-              hoveredSlice === index ? "hovered" : ""
-            }`}
-            onMouseEnter={() => handleSliceHover(index)}
-            onMouseLeave={handleSliceLeave}
-          >
-            <div
-              className="legend-color"
-              style={{ backgroundColor: item.color }}
-            ></div>
-            <div className="legend-label">{item.label}</div>
-            <div className="legend-value">{item.value}</div>
-            <div className="legend-percentage">{item.percentage}%</div>
-          </div>
-        ))}
-      </div> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* <div className="flex">
+    <div className="flex space-x-4">
+      <input
+        type="text"
+        value={searchLanguage}
+        onChange={handleLanguageChange}
+        placeholder="Filter by language"
+        className="w-full px-3 py-2 border border-gray-300 rounded"
+      />
+      <div className="mt-4 space-x-2">
+        <button
+          onClick={applyFilters}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Update Filters
+        </button>
+        <button
+          onClick={clearFilters}
+          className="px-4 py-2 bg-gray-300 text-gray-700 rounded"
+        >
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </div> */}

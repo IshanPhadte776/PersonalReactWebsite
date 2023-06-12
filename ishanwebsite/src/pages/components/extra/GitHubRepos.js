@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import styles from "./GithubRepo.module.css";
 import PieChart from "./PieChart";
+import GithubStats from "./GithubStats";
 
 const GithubRepos = () => {
   const [repos, setRepos] = useState([]);
@@ -10,7 +10,10 @@ const GithubRepos = () => {
 
   const [expanded, setExpanded] = useState(false);
   const [searchLanguage, setSearchLanguage] = useState("");
-  const [filterButtonClicked, setFilterButtonClicked] = useState(false);
+  const [filterButtonClicked, setFilterButtonClicked] = useState(true);
+
+  const [highlightedLanguage, setHighlightedLanguage] = useState("");
+  const [numOfProjects, setNumOfProjects] = useState("");
 
   const convertDate = (dateString) => {
     const date = new Date(dateString);
@@ -75,21 +78,19 @@ const GithubRepos = () => {
   let previousColor = null;
 
   const getRandomColor = () => {
-    const colors = ["#004EF5", "#0C06D4", "#5D05EB", "#A109D6", "#F707CE"];
+    const colors = ["#CFBFFF", "#8577E6", "#C8C8FA", "#929BE5", "#829EFA"];
     let randomIndex = Math.floor(Math.random() * colors.length);
-    
+
     // If the previously selected color exists, ensure the new random color is different
     if (previousColor !== null) {
       while (colors[randomIndex] === previousColor) {
         randomIndex = Math.floor(Math.random() * colors.length);
       }
     }
-    
+
     previousColor = colors[randomIndex];
     return previousColor;
   };
-  
-  
 
   const languageCounts = repos.reduce((counts, repo) => {
     const { language } = repo;
@@ -107,66 +108,123 @@ const GithubRepos = () => {
       color: getRandomColor(),
     };
   });
-  
 
-  const filteredRepos = repos.filter((repo) => repo.language === searchLanguage);
+  const handleSliceHover = (language) => {
+    setHighlightedLanguage(language);
+    setNumOfProjects(data.find((item) => item.label === language).value);
+  };
+
+  const [hoveredRepo, setHoveredRepo] = useState(null);
+
+  const handleMouseEnter = (repoId) => {
+    setHoveredRepo(repoId);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredRepo(null);
+  };
+
+
+  const filteredRepos = repos.filter(
+    (repo) => repo.language === searchLanguage
+  );
   const displayRepos = filterButtonClicked ? filteredRepos : repos;
 
+  
+
   return (
-    <div>
-      <h2>My GitHub Repositories</h2>
-      <PieChart data={data} />
-      <input
-        type="text"
-        value={searchLanguage}
-        onChange={handleLanguageChange}
-        placeholder="Filter by language"
-        className={styles.languageFilter}
-      />
-      <button onClick={applyFilters} className={styles.filterButton}>
-        Update Filters
-      </button>
-      <button onClick={clearFilters} className={styles.filterButton}>
-        Clear Filters
-      </button>
-      <button onClick={toggleVisibility} className={styles.expandButton}>
-        {expanded ? "Collapse" : "Expand"} Repositories
-      </button>
-      {expanded && (
-        <ul className={styles.repoList}>
-          {displayRepos.map((repo) => (
-            <a
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.repoLink}
-              key={repo.id}
+    
+    <div className=" rounded-md p-4 ">
+      <div className="flex flex-row">
+        <div className="w-3/5">
+          <PieChart data={data} onSliceHover={handleSliceHover} />
+        </div>
+
+        <div className="flex flex-col w-2/5 pr-4">
+          <div className="flex flex-col space-y-4">
+            <div className="flex space-x-4">
+              <h2 className="text-2xl font-bold">
+                Ishan Phadte's GitHub Repositories
+              </h2>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <GithubStats> </GithubStats>
+
+              <h3>Language Highlighted: {highlightedLanguage}</h3>
+              <h3> Number of Projects: {numOfProjects}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex">
+        <div className="flex space-x-4">
+          <input
+            type="text"
+            value={searchLanguage}
+            onChange={handleLanguageChange}
+            placeholder="Filter by language"
+            className="w-full px-3 py-2 border border-gray-300 rounded"
+          />
+          <div className="mt-4 space-x-2">
+            <button
+              onClick={clearFilters}
+              className="px-4 py-2 bg-gray-300 text-gray-700 rounded"
             >
-              <li className={`${styles.repoItem} ${styles.curvedBox}`}>
-                <span className={styles.repoName}>
-                  {repo.name} ({repo.language})
-                </span>
-                <br />
-                Created: {convertDate(repo.created_at)}
-                <br />
-                Last Push: {convertDate(repo.pushed_at)}
-                <br />
-                Description: {splitDescription(repo.description)[0]}
-                <br />
-                Tools: {splitDescription(repo.description)[1]}
-              </li>
-            </a>
-          ))}
-          {loading && (
-            <div className={styles.loadingMessage}>Loading more repositories...</div>
-          )}
-          {filterButtonClicked && filteredRepos.length === 0 && !loading && (
-            <div className={styles.noMatchingRepos}>No matching repositories found.</div>
-          )}
-        </ul>
-      )}
+              Clear Filters
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        {loading ? (
+          <p>Loading repositories...</p>
+        ) : (
+<ul className="mt-4 space-y-4">
+  {displayRepos.map((repo) => (
+    <li
+  key={repo.id}
+  className={`flex items-start cursor-pointer rounded p-6 ${
+    repo.id === hoveredRepo ? 'border-4 border-8577E6' : ''
+  }`}
+  onClick={() => window.open(repo.html_url, '_blank')}
+  onMouseEnter={() => handleMouseEnter(repo.id)}
+  onMouseLeave={handleMouseLeave}
+>
+      <span className="mr-2">&#8226;</span>
+      <div className="flex-1">
+      <h3 className="font-bold underline text-8677E6">{repo.name}</h3>
+        <div>{repo.description}</div>
+        <div>{repo.created_at}</div>
+        {repo.topics && repo.topics.length > 0 && (
+          <div className="ml-4">
+            <span className="font-semibold">Topics: </span>
+            {repo.topics.map((topic, index) => (
+              <React.Fragment key={topic}>
+                {index > 0 && ", "}
+                {topic}
+              </React.Fragment>
+            ))}
+          </div>
+        )}
+      </div>
+    </li>
+  ))}
+</ul>
+
+
+
+
+
+        )}
+      </div>
+      
     </div>
+    
   );
+  
 };
+
 
 export default GithubRepos;

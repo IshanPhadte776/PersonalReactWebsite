@@ -4,6 +4,8 @@
     align-items: center;
     justify-content: center;
   }
+
+
   
   .chart {
     position: relative;
@@ -21,7 +23,13 @@
     width: 100
   }
 
-  .slice-label {
-    font-size: 12px; /* Adjust the font size to your desired value */
+  .arrowLine {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.5;
+    stroke-dasharray: 3;
   }
   
+  .arrowTriangle {
+    fill: #000;
+  }

@@ -43,7 +43,10 @@ function Hero() {
             </p>
           </div>
           <div className="flex justify-center">
-            <button className="bg-transparent border border-white rounded-full py-2 px-4 text-white hover:bg-white hover:text-gray-800 transition-colors duration-300 mx-auto">
+            <button
+              className="bg-transparent border border-white rounded-full py-2 px-4 text-white hover:bg-white hover:text-gray-800 transition-colors duration-300 mx-auto"
+              onClick={() => window.open("https://github.com/IshanPhadte776/IshanPhadte776/blob/main/IshanPhadteResume.pdf", "_blank")}
+            >
               Resume
             </button>
           </div>

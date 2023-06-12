@@ -56,8 +56,6 @@ export default function Home() {
 
           <GithubRepos></GithubRepos>
 
-          <GithubStats></GithubStats>
-
           <TechnologyUsed language={language}></TechnologyUsed>
         </div>
       </div>

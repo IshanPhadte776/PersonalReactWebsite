@@ -18,9 +18,7 @@ const GithubStats = () => {
     const fetchStats = async () => {
       try {
         const response = await axios.get('https://api.github.com/users/IshanPhadte776', {
-          headers: {
-            Authorization: 'Bearer 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 ',
-          },
+
         });
         setStats(response.data);
       } catch (error) {
@@ -37,7 +35,6 @@ const GithubStats = () => {
 
   return (
     <div>
-      <h2>GitHub Stats for IshanPhadte776</h2>
       <ul>
         <li>Created On: {convertDate(stats.created_at)}</li>
         <li>Followers: {stats.followers}</li>
