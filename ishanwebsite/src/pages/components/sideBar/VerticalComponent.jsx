@@ -19,7 +19,7 @@ const VerticalComponent = (props) => {
   };
 
   return (
-    <div className="fixed left-0 bottom-0 h-full bg-black flex flex-col items-center justify-between p-4">
+    <div className="fixed left-0 bottom-0 w-1/4 h-full bg-black flex flex-col items-center justify-between p-4">
       <div
         className={`${styles.jump} w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-18 xl:h-18 2xl:w-20 2xl:h-20 3xl:w-22 3xl:h-22 4xl:w-24 4xl:h-24`}
       >

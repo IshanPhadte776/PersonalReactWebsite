@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCaretUp } from "react-icons/fa";
 import GithubRepos from "./components/extra/GitHubRepos";
 import GithubStats from "./components/extra/GithubStats";
@@ -9,11 +9,29 @@ import VerticalComponent from "./components/sideBar/VerticalComponent";
 import Hero from "./components/hero/Hero";
 
 export default function Home() {
-  const scrollToTop = () => {
-    document.documentElement.scrollTop = 0;
-  };
-
   const [language, setLanguage] = useState("English");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  const scrollToTop = () => {
+    const scrollDuration = 500; // Duration of the scroll animation in milliseconds
+    const easing = (t) => t * t * t; // Easing function for gradual acceleration
+    let currentTime = 0;
+
+    const animateScroll = () => {
+      currentTime += 15; // Time increment for each interval
+      const progress = currentTime / scrollDuration;
+      const scrollStep = -window.scrollY * easing(progress);
+
+      if (progress < 1) {
+        window.scrollBy(0, scrollStep);
+        requestAnimationFrame(animateScroll);
+      } else {
+        window.scrollTo(0, 0); // Scroll to the exact top when animation completes
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
+  };
 
   const handleLanguageChange = (event) => {
     setLanguage(event);
@@ -24,41 +42,60 @@ export default function Home() {
     console.log(event.currentTarget.className);
   };
 
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 850);
+    };
+
+    window.addEventListener("resize", checkScreenSize);
+    checkScreenSize();
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
+
   return (
     <>
       <Head>
         <title>Ishan's React Website</title>
       </Head>
 
-      <div className="min-h-screen grid grid-cols-4">
-        <div className="col-span-1">
-          <VerticalComponent
-            language={language}
-            onLanguageChange={handleLanguageChange}
-          />
+      {!isSmallScreen ? (
+        <div className="min-h-screen grid grid-cols-4">
+          <div className="col-span-1">
+            <VerticalComponent
+              language={language}
+              onLanguageChange={handleLanguageChange}
+            />
+          </div>
+          <div className="col-span-3">
+            <Hero> </Hero>
+            <span
+              onClick={scrollToTop}
+              className="fixed bottom-4 right-4 z-50 p-3 text-C8C8FA text-4xl hover:text-929BE5 hover:cursor-pointer transition-colors duration-300"
+            >
+              &#9650;
+            </span>
+            <GithubRepos></GithubRepos>
+            <TechnologyUsed language={language}></TechnologyUsed>
+          </div>
         </div>
-
-        <div className="col-span-3 h-full">
-          {/* <Header
-            language={language}
-            onLanguageChange={handleLanguageChange}
-          ></Header> */}
-
-          {/* <ImageWithText language={language}></ImageWithText> */}
-
-          {/* <ContactInfoAndProjects language={language}></ContactInfoAndProjects> */}
-
+      ) : (
+        <div className="min-h-screen">
           <Hero> </Hero>
-          <FaCaretUp
+          <span
             onClick={scrollToTop}
-            className="fixed bottom-4 right-4 z-50 p-2 bg-gray-800 rounded-full text-white text-lg shadow-md hover:bg-gray-700 transition-colors duration-300"
-          />
+            className="fixed bottom-4 right-4 z-50 p-3 text-C8C8FA text-4xl hover:text-929BE5 hover:cursor-pointer transition-colors duration-300"
+          >
+            &#9650;
+          </span>
+          <GithubRepos />
 
-          <GithubRepos></GithubRepos>
+              <TechnologyUsed language={language} />
 
-          <TechnologyUsed language={language}></TechnologyUsed>
         </div>
-      </div>
+      )}
     </>
   );
 }

@@ -12,6 +12,11 @@ module.exports = {
 
       colors: {
         '8677E6': '#8677E6',
+        'CFBFFF': '#CFBFFF',
+        'C8C8FA': '#C8C8FA',
+        '929BE5': '#929BE5',
+        '829EFA': '#829EFA',
+
       },
     },
   },
